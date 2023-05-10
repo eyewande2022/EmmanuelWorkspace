@@ -1,4 +1,31 @@
- 97  ~ssh -i "lempproject2.pem" ubuntu@ec2-3-86-42-22.compute-1.amazonaws.com
+At the start of the LEMP project i successfully launched an instance  of IPV4 address 3.86.42.22 and successful launched the ssh for lempproject2.pem  into the git bash.Here are the steps done . for each details stack .
+
+LINUX  NGINX  MYSQL   PHP 
+
+LINUX STEPS:::
+
+1) Create Instances and connect to your local machine 
+CREATE AN ACCOUNT WITH AWS
+CREATE AN INSTANCE AND GIVE IT A NAME 
+CHOOSE THE OS IMAGE AND A FREE TIER IMAGE THAT IS REQUIRED
+CHOOSE THE INSTANCE TYPE 
+CHOOSE A KEY PAIR LOGIN WHICH YOU WOULD NEED TO ACHIEVE THE LAUNCH TO YOUR LOCAL MACHINE LATER CHOOSE THE .PEM  pair  format
+SELECT EXISTING SECURITY GROUP 
+ALLOW SSH AND CHOOSE A REASONABLY FREE TIER MEMORY 
+THEN LAUNCH IT AND GET TO THE INSTANCE DASHBOARD 
+REFRESH TO KEEP IT RUNNING AND ALSO MAKE SURE IT PASSES STATUS AND ALSO VIEW THE VPN ASSIGNED
+CLICK THE PROJECT 1 INSTANCE 
+
+2) SYNCING WITH LOCAL MACHINE TO BEGIN OPERATION BY USING GIT BASH:
+USE LINUX TO CHANGE DIRECTORY TO DOWNLOADS  (cd downloads) .
+ONCE THERE , PASTE YOUR SSH GOTTEN FROM THE AWS INSTANCE 
+AND THEN IT AUTOMATICALLY CONNECTS TO YOUR SYSTEM 
+
+
+ssh -i "projectlemp2.pem" ubuntu@ec2-3-90-229-187.compute-1.amazonaws.com
+
+
+97  ~ssh -i "lempproject2.pem" ubuntu@ec2-3-86-42-22.compute-1.amazonaws.com
    98  ~ssh -i "lempproject2.pem" ubuntu@3.86.42.22
    99  ~ssh -i lempproject2.pem ubuntu@3.86.42.22
   100  ~ssh -i lempproject2.pem ubuntu@ec2-3-86-42-22
@@ -29,39 +56,20 @@
   125  history
 
 
-INUX :::::::::::::::::::::::::::::::::
-1) Create Instances and connect to your local machine 
-CREATE AN ACCOUNT WITH AWS
-CREATE AN INSTANCE AND GIVE IT A NAME 
-CHOOSE THE OS IMAGE AND A FRE TIER IMAGE THAT IS REQUIRED
-CHOOSE THE INSTANCE TYPE 
-CHOOSE A KEY PAIR LOGIN WHICH YOU WOULD NEED TO ACHIEVE THE LAUNCH TO YOUR LOCAL MACHINE LATER CHOOSE THE .PEM  pair  format
-SELECT EXISTING SECURITY GROUP 
-ALLOW SSH AND CHOOSE A REASONABLY FREE TIER MEMORY 
-THEN LAUNCH IT AND GET TO THE INSTANCE DASHBOARD 
-REFRESH TO KEEP IT RUNNING AND ALSO MAKE SURE IT PASSES STATUS AND ALSO VIEW THE VPN ASSIGNED
-CLICK THE PROJECT 1 INSTANCE 
 
-2) SYNCYING WITH LOCAL MACHINE TO BEGIN OPERATION:
-USE LINUX TO CHANGE DIRECTORY TO DOWNLOADS  (cd downloads) .
-ONCE THERE , PASTE YOUR SSH GOTTEN FROM THE AWS INSTANCE 
-AND THEN IT AUTOMATICALLY CONNECTS TO YOUR SYSTEM 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-ssh -i "projectlemp2.pem" ubuntu@ec2-3-90-229-187.compute-1.amazonaws.com
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 NGINX :::::::::::::::::::::::::::::::::
-Install NGINXusing Ubuntu’s package manager ‘apt’:
+Install NGINX  
+using Ubuntu’s package manager ‘apt’:
 
 sudo apt update              (to update ) 
 sudo apt install nginx     ( to install nginx)
 sudo systemctl statusnginx   (to verify nginx status if downloaded successfully )
 
+Next step :
+Change inbound rule in the security groups by adding a new rule 
 
-
-NEXT STEP WOULD BE "CHANGING THE INBOUND RULES OF THE SECURITY PORT" BY 
-ADDING A NEW RULE
 ENSURE TO "SELECT   HTTP" 
 PORT SHOULD BE 80 
 CHANGE "Custom to ANYWHERE "   AND SAVE THE RULE 
@@ -69,7 +77,7 @@ CHANGE "Custom to ANYWHERE "   AND SAVE THE RULE
 
 
  curl http://localhost:80
-CHECK ON THE TERMINAL IF THE RESPONSE SHOWS THE PAGE CHANGES BY THE DATA IT PROVIDES 
+CHECK ON THE GIT BASH TERMINAL IF THE RESPONSE SHOWS THE PAGE CHANGES BY THE DATA IT PROVIDES 
 PROCEEDS 
 
 Use this command to check the IPADDRESS FROM YOUR TERMINAL 
@@ -81,15 +89,14 @@ LAUNCH ON WEB BROWSER TO DISPLAY :  http://3.90.229.187:80
 FINAL DESTINATION:  NGINX DEFAULT PAGE DISPLAYS
 
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-MYSQL:::::::::::::::::::::::::::::::::PROCEED TO CREATE YOUR DATABASE
+MYSQL:::::::::::::::::::::::::::::::::PROCEED TO INSTALLING AND CREATING YOUR DATABASE
 
 sudo apt install mysql-server            (Install mysql server and  TYPE YES AND ENTER) 
 sudo mysql                               (connect to the MYSQL server and show you details )
 
-It’s recommended that you run a security script that comes pre-installed with MySQL. This script will remove some insecure default settings and lock down access to your database system. Before running the script you will set a password for the root user, using mysql_native_password as default authentication method. We’re defining this user’s password as PassWord.1.
+After installlation confirmed ,we should endeavour to run the "ALTER" script to get a password for the root user using  
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
 
@@ -98,12 +105,12 @@ mysql> exit   (Exit the MySQL shell)
 
 CONFIRM THE PASSWORD AGAIN   $ sudo mysql -p
 
-once you get access 
+once you get access and confirm you have the right password .exit from my SQL
 
 mysql> exit   (Exit the MySQL shell)
 
 
-
+Use this command to check the status of MYSQL
 sudo systemctl status mysql  (TO CHECK IF MY SQL SERVER IS RUNNING )
 
 
@@ -114,6 +121,9 @@ PHP:::::::::::::::::::::::::::::::::PROCESS CODE TO DISPLAY DYNAMIC CONTENT TO T
 Installing 2 packages at once (php-fpm    php-mysql)
 
 sudo apt install php-fpm php-mysql
+Click Y and press enter to confirm installation.
+
+Use this to confirm the version 
 
 php -v   (php version)
 
@@ -124,15 +134,14 @@ ONCE VERSION IS DONE      LAMP STACK HAS BEEN COMPLETELY INSTALLED
 Step 4 — Configuring Nginx to Use PHP Processor
 
 
-webroot was created using 
+Webroot was created using 
 
-sudo mkdir /var/www/projectLEMP
-
-
+sudo mkdir /var/www/projectLEMP  (create webroot)
 
 sudo chown -R $USER:$USER /var/www/projectLEMP   (assign ownership of the directory with the $USER environment variable)
 
-sudo vim /etc/nginx/sites-available/projectLEMP   (USED VIM EDITOR
+Used Vim editor because it wors fine for me 
+sudo vim /etc/nginx/sites-available/projectLEMP   (USED VIM EDITOR to type in the bare-bone config
 
 
 This will create a new blank file. Paste in the following bare-bones configuration:
@@ -176,12 +185,10 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 
-
+Proceed to the next commanf
 
 
 sudo unlink /etc/nginx/sites-enabled/default   (Disable default Nginx host that is currently configured to listen on port 80, for this run:)
-
-
 
 
 sudo systemctl reload nginx          (When you are ready, reload Nginx to apply the changes:)
@@ -191,16 +198,16 @@ sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/met
 Now go to your browser and try to open your website URL using IP address:
 
 http://<Public-IP-Address>:80
+http://3.86.42.22:80
 
+Website is successfully  displayed ##
 
-website displayed ##
-
-
+'Hello LEMP from hostname  public-hostname 'with public IP'is displayed 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 STEP 5 TESTING PHP WITH NGINX
 
-sudo vim /var/www/projectLEMP/info.php
+sudo vim /var/www/projectLEMP/info.php  (create a document root  and open with a vim editor)
 
 
 inputing the PHP code 
@@ -213,7 +220,7 @@ http://3.90.229.187/info.php
 
 All completely viewed 
 
-Dont forget to remove this 
+Dont forget to remove this as you can recover it back later
 
 sudo rm /var/www/your_domain/info.php
 
@@ -224,7 +231,7 @@ sudo rm /var/www/your_domain/info.php
 STEP 6 – RETRIEVING DATA FROM MYSQL DATABASE WITH PHP (CONTINUED)
 To login into the mysql server 
 sudo mysql -p
-
+enter your password that you created earlier 
 
 
 
@@ -234,21 +241,55 @@ sudo mysql  (To create a new database, run the following command from your MySQL
 
 mysql> CREATE DATABASE `example_database`;   (create new data base)
 
-mysql>  CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';   GET A NEW PASSWORD 
-Now we need to give this user permission over the example_database database:
+As for me ,due to many errors ,I ended up creating these details but with alot of back and forth .I now understand the full concept on password
+PLEASE NOTE YOU CREATED with this details 
+example_database
+example_user2     
+and password 
 
-mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
+
+
+
+
+mysql>  CREATE USER 'example_user2'@'%' IDENTIFIED WITH mysql_native_password BY 'password';   GET A NEW PASSWORD 
+
+
+mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';  (give this example_user2  permission over the example_database database:)
 
 Now exit the MySQL shell with:
 
 mysql> exit
 
 
-mysql -u example_user -p  (USE THE NEW USER PASSCREATED RECENTLY AND LOG IN AGAIN )
-
-PLEASE NOTE YOU CREATED   ............example_user1 ...Te...2020
+mysql -u example_user2 -p  (USE THE NEW USER PASS CREATED RECENTLY AND LOG IN AGAIN )
 
 
+mysql> SHOW DATABASES;   (to show the database format being used )
+
+Input in mysql all the details needed in the datbase todo-list
+
+mysql> SHOW DATABASES;
+
+
+INPUT ALL values and data 
+mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
+
+
+mysql>  SELECT * FROM example_database.todo_list;   (The table is displayed )
+
+Now exit the MySQL shell with:
+
+mysql> exit
+
+vim /var/www/projectLEMP/todo_list.php  (to input all data given)
+
+After  saving and closing we visint the public address 
+http://<Public_domain_or_IP>/todo_list.php
+
+
+Then the final page is displayed 
+
+Due to the lenghty task and took me hours i had to change IPV4 to finally get things sorted
 http://3.86.42.22/todo_list.php
 
 http://3.90.229.187/todo_list.php
@@ -257,12 +298,7 @@ http://3.90.229.187/todo_list.php
 http://<Public_domain_or_IP>/todo_list.php
 
 
-PLEASE NOTE YOU CREATED with this details 
-example_database
-example_user2     vs password2
 
-
-sudo rm /var/www/3.90.229.187/info.php
 
 
 
